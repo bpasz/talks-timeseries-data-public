@@ -1,0 +1,506 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "panels": [
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdfk8zctw76dcd"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 18,
+          "w": 16,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.64,
+          "fullHighlight": false,
+          "groupWidth": 0.34,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "vertical",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          },
+          "xField": "hourly",
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 100
+        },
+        "pluginVersion": "10.4.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "bdfk8zctw76dcd"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "hide": false,
+            "rawQuery": true,
+            "rawSql": "SELECT date_part('hour', air_quality.datetime) AS hourly, avg(air_quality.value)\r\nfrom air_quality\r\ngroup by hourly\r\norder by hourly ASC ;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "NO2 Mean per hour",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdfk8zctw76dcd"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineStyle": {
+                "fill": "solid"
+              },
+              "lineWidth": 2,
+              "pointSize": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 16,
+          "x": 0,
+          "y": 18
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "10.4.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "bdfk8zctw76dcd"
+            },
+            "editorMode": "builder",
+            "format": "time_series",
+            "rawSql": "SELECT datetime AS \"time\", location, value AS \"value\" FROM air_quality ORDER BY datetime ASC ",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "alias": "\"time\"",
+                  "parameters": [
+                    {
+                      "name": "datetime",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                },
+                {
+                  "parameters": [
+                    {
+                      "name": "location",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                },
+                {
+                  "alias": "\"value\"",
+                  "parameters": [
+                    {
+                      "name": "value",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [],
+              "orderBy": {
+                "property": {
+                  "name": [
+                    "datetime"
+                  ],
+                  "type": "string"
+                },
+                "type": "property"
+              },
+              "orderByDirection": "ASC",
+              "whereJsonTree": {
+                "children1": [
+                  {
+                    "id": "babbab88-0123-4456-b89a-b18e4ecae676",
+                    "properties": {
+                      "field": "location",
+                      "fieldSrc": "field",
+                      "operator": "equal",
+                      "value": [
+                        null
+                      ],
+                      "valueSrc": [
+                        "value"
+                      ],
+                      "valueType": [
+                        "text"
+                      ]
+                    },
+                    "type": "rule"
+                  }
+                ],
+                "id": "988bbaab-0123-4456-b89a-b18e4eab3c6e",
+                "properties": {
+                  "conjunction": "AND"
+                },
+                "type": "group"
+              }
+            },
+            "table": "air_quality"
+          }
+        ],
+        "title": "NO2 by Location",
+        "transformations": [
+          {
+            "id": "prepareTimeSeries",
+            "options": {
+              "format": "wide"
+            }
+          }
+        ],
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdfk8zctw76dcd"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineStyle": {
+                "fill": "solid"
+              },
+              "lineWidth": 2,
+              "pointSize": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 18,
+          "x": 0,
+          "y": 31
+        },
+        "id": 3,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "10.4.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "bdfk8zctw76dcd"
+            },
+            "editorMode": "code",
+            "format": "time_series",
+            "rawQuery": true,
+            "rawSql": "SELECT time_bucket('1 day', datetime) AS \"time\", location, avg(value) AS \"value\" FROM air_quality group by time,location ORDER BY time ASC LIMIT null ",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "alias": "\"time\"",
+                  "parameters": [
+                    {
+                      "name": "datetime",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                },
+                {
+                  "name": "AVG",
+                  "parameters": [
+                    {
+                      "name": "location",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                },
+                {
+                  "alias": "\"value\"",
+                  "parameters": [
+                    {
+                      "name": "value",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [],
+              "orderBy": {
+                "property": {
+                  "name": [
+                    "datetime"
+                  ],
+                  "type": "string"
+                },
+                "type": "property"
+              },
+              "orderByDirection": "ASC",
+              "whereJsonTree": {
+                "children1": [
+                  {
+                    "id": "babbab88-0123-4456-b89a-b18e4ecae676",
+                    "properties": {
+                      "field": "location",
+                      "fieldSrc": "field",
+                      "operator": "equal",
+                      "value": [
+                        null
+                      ],
+                      "valueSrc": [
+                        "value"
+                      ],
+                      "valueType": [
+                        "text"
+                      ]
+                    },
+                    "type": "rule"
+                  }
+                ],
+                "id": "988bbaab-0123-4456-b89a-b18e4eab3c6e",
+                "properties": {
+                  "conjunction": "AND"
+                },
+                "type": "group"
+              }
+            },
+            "table": "air_quality"
+          }
+        ],
+        "title": "Daily mean per location",
+        "transformations": [
+          {
+            "id": "prepareTimeSeries",
+            "options": {
+              "format": "wide"
+            }
+          }
+        ],
+        "type": "timeseries"
+      }
+    ],
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "2019-05-07T00:00:00.000Z",
+      "to": "2019-06-21T00:00:00.000Z"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "Matplotlib - comparison",
+    "uid": "edfz8nin8ny0wc",
+    "version": 8,
+    "weekStart": ""
+  }

@@ -1,0 +1,1 @@
+Create .env file with PostgreSQL password (check `.env.sample`)
